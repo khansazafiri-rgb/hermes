@@ -40,10 +40,7 @@ services:
     ports:
       - "$dashboard_ip:9119:9119"
 EOF
-  echo "Alamat: http://$dashboard_ip:9119"
-  echo "Nama pengguna: admin"
-  echo "Kata sandi: $dashboard_password"
-  echo "Simpan kata sandi ini. Jangan kirimkan ke chat atau GitHub."
+  printf 'Alamat: http://%s:9119\nNama pengguna: admin\nKata sandi: %s\n' "$dashboard_ip" "$dashboard_password" > "$private_dir/login.txt"
 else
   echo "Memakai pengaturan dashboard yang sudah ada di $override_file."
 fi
@@ -51,4 +48,6 @@ fi
 cd "$(dirname "$compose_file")"
 docker compose -f "$compose_file" -f "$override_file" config --quiet
 docker compose -f "$compose_file" -f "$override_file" up -d --no-deps hermes
-echo "Dashboard sedang dinyalakan. Buka alamat di atas dari perangkat yang tersambung ke jaringan pribadi VPS."
+echo "Dashboard sedang dinyalakan. Alamat dan sandi tersimpan di $private_dir/login.txt."
+echo "Baca sendiri dengan: cat $private_dir/login.txt"
+echo "Jangan kirim isi berkas login tersebut ke chat atau GitHub."
