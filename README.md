@@ -30,7 +30,7 @@ Di VPS dengan container `hermes`, jalankan langkah tambahan berikut setelah pema
 sh "$HOME/hermes-ruang-kerja-repo/enable-dashboard.sh"
 ```
 
-Pemasang dashboard membaca pengaturan Docker Compose container `hermes`, membuat pengaturan tambahan pribadi di `~/.config/hermes-ruang-kerja/compose.dashboard.yml`, lalu memulai ulang container Hermes sebentar. Dashboard dibuka hanya pada alamat jaringan pribadi `100.70.251.71:9119` dan dilindungi nama pengguna serta kata sandi acak. **Simpan kata sandi yang ditampilkan di terminal; jangan kirim ke chat atau GitHub.** Dari perangkat yang tersambung ke jaringan pribadi VPS, buka `http://100.70.251.71:9119`, masuk, lalu pilih tab **Ruang Kerja**.
+Pemasang dashboard membaca pengaturan Docker Compose container `hermes`, membuat pengaturan tambahan pribadi di `~/.config/hermes-ruang-kerja/compose.dashboard.yml`, lalu memulai ulang container Hermes sebentar. Dashboard dibuka hanya pada alamat jaringan pribadi `100.70.251.71:9119` dan dilindungi nama pengguna serta kata sandi acak. Alamat dan sandi disimpan di `~/.config/hermes-ruang-kerja/login.txt`; baca sendiri di VPS dengan `cat ~/.config/hermes-ruang-kerja/login.txt` dan **jangan kirim isinya ke chat atau GitHub**. Dari perangkat yang tersambung ke jaringan pribadi VPS, buka alamat tersebut, masuk, lalu pilih tab **Ruang Kerja**.
 
 Saat menyalakan ulang layanan lewat Docker Compose di kemudian hari, sertakan berkas tambahan tersebut atau jalankan `enable-dashboard.sh` lagi agar dashboard tetap aktif. [Panduan resmi Hermes Docker](https://hermes-agent.nousresearch.com/docs/user-guide/docker) menjelaskan bahwa dashboard perlu diaktifkan pada container dan akses luar container memerlukan autentikasi.
 
