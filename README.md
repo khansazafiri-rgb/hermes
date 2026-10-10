@@ -17,13 +17,12 @@ Jalankan di VPS yang memasang Hermes:
 
 ```bash
 git clone https://github.com/khansazafiri-rgb/hermes.git
-mkdir -p "${HERMES_HOME:-$HOME/.hermes}/plugins/hermes-ruang-kerja"
-cp -R hermes/hermes-ruang-kerja/dashboard "${HERMES_HOME:-$HOME/.hermes}/plugins/hermes-ruang-kerja/"
+sh hermes/install.sh
 ```
 
 Buka ulang dashboard Hermes. Tab **Ruang Kerja** akan muncul di samping Sessions. Jika belum terlihat, gunakan fitur **Rescan Plugins** di dashboard atau mulai ulang proses dashboard. Pastikan Hermes yang terpasang mendukung [dashboard plugins](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard).
 
-Untuk pembaruan, ambil perubahan terbaru dari repo ini lalu salin kembali folder `dashboard/` ke lokasi plugin yang sama.
+Untuk pembaruan, jalankan `git pull` di folder repo hasil clone, lalu `sh install.sh` lagi. Pemasang hanya menyalin tiga berkas plugin dan tidak mengubah token, konfigurasi model, atau jadwal yang sudah ada.
 
 ## Menggunakan otomasi
 
