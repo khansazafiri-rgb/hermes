@@ -4,9 +4,10 @@ set -eu
 repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 hermes_home=${HERMES_HOME:-"$HOME/.hermes"}
 source_dir="$repo_dir/hermes-ruang-kerja/dashboard"
-target_dir="$hermes_home/plugins/hermes-ruang-kerja/dashboard"
+plugin_dir="$hermes_home/plugins/hermes-ruang-kerja"
+target_dir="$plugin_dir/dashboard"
 
-if [ ! -f "$source_dir/manifest.json" ] || [ ! -f "$source_dir/dist/index.js" ] || [ ! -f "$source_dir/dist/style.css" ]; then
+if [ ! -f "$repo_dir/hermes-ruang-kerja/plugin.yaml" ] || [ ! -f "$repo_dir/hermes-ruang-kerja/__init__.py" ] || [ ! -f "$source_dir/manifest.json" ] || [ ! -f "$source_dir/dist/index.js" ] || [ ! -f "$source_dir/dist/style.css" ]; then
   echo "Berkas plugin tidak lengkap." >&2
   exit 1
 fi
@@ -17,6 +18,8 @@ if [ ! -d "$hermes_home" ] && ! command -v hermes >/dev/null 2>&1; then
 fi
 
 mkdir -p "$target_dir/dist"
+cp "$repo_dir/hermes-ruang-kerja/plugin.yaml" "$plugin_dir/plugin.yaml"
+cp "$repo_dir/hermes-ruang-kerja/__init__.py" "$plugin_dir/__init__.py"
 cp "$source_dir/manifest.json" "$target_dir/manifest.json"
 cp "$source_dir/dist/index.js" "$target_dir/dist/index.js"
 cp "$source_dir/dist/style.css" "$target_dir/dist/style.css"
