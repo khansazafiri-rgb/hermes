@@ -1,0 +1,4 @@
+name: hermes-ruang-kerja
+version: "0.1.1"
+description: Dashboard pribadi untuk aktivitas, panduan AI, otomasi, dan Telegram.
+kind: standalone
