@@ -48,6 +48,7 @@ fi
 cd "$(dirname "$compose_file")"
 docker compose -f "$compose_file" -f "$override_file" config --quiet
 docker compose -f "$compose_file" -f "$override_file" up -d --no-deps hermes
+docker exec hermes hermes plugins enable hermes-ruang-kerja
 echo "Dashboard sedang dinyalakan. Alamat dan sandi tersimpan di $private_dir/login.txt."
 echo "Baca sendiri dengan: cat $private_dir/login.txt"
 echo "Jangan kirim isi berkas login tersebut ke chat atau GitHub."
