@@ -185,9 +185,11 @@
     const recentSessions = sessions.filter(function (session) { return !session.is_active; }).slice(0, 5);
     const activeAgents = Number(status.active_agents || 0);
     const gatewayOn = status.gateway_running === true || status.gateway_state === "running";
+    const gatewayLabel = data.status ? (gatewayOn ? "Terhubung" : "Tidak berjalan") : (loadedAt ? "Tidak tersedia" : "Memuat…");
     const telegram = data.platforms.find(function (item) { return item.id === "telegram"; });
     const telegramState = telegram ? telegram.state : (status.gateway_platforms && status.gateway_platforms.telegram && status.gateway_platforms.telegram.state) || "not_configured";
     const telegramReady = telegramState === "connected";
+    const telegramLabel = !loadedAt ? "Memuat…" : (telegramReady ? "Terhubung" : "Belum aktif");
     const telegramTarget = data.targets.find(function (item) { return item.id === "telegram"; });
     const telegramDeliverReady = telegramReady && Boolean(telegramTarget && telegramTarget.home_target_set);
     const scheduled = data.jobs.filter(function (job) { return job.enabled && job.state !== "completed"; });
@@ -240,9 +242,9 @@
     function overview() {
       return h(React.Fragment, null,
         h("div", { className: "hrk-stats" },
-          stat("GATEWAY", gatewayOn ? "Terhubung" : "Tidak berjalan", gatewayOn ? "Hermes siap menerima tugas" : "Periksa layanan di VPS", gatewayOn ? "hrk-good" : "hrk-warn"),
+          stat("GATEWAY", gatewayLabel, data.status ? (gatewayOn ? "Hermes siap menerima tugas" : "Periksa layanan di VPS") : "Menunggu data dari Hermes", gatewayOn ? "hrk-good" : "hrk-warn"),
           stat("SEDANG BERPROSES", String(activeAgents), activeAgents ? "giliran agent saat ini" : "Hermes sedang menunggu tugas", activeAgents ? "hrk-good" : ""),
-          stat("TELEGRAM", telegramReady ? "Terhubung" : "Belum aktif", telegramReady ? "Bot siap menerima pesan" : "Lihat panduan sambungan", telegramReady ? "hrk-good" : "hrk-warn"),
+          stat("TELEGRAM", telegramLabel, !loadedAt ? "Menunggu status kanal" : (telegramReady ? "Bot siap menerima pesan" : "Lihat panduan sambungan"), telegramReady ? "hrk-good" : "hrk-warn"),
           stat("OTOMASI AKTIF", String(scheduled.length), nextJob ? "Berikutnya " + when(nextJob.next_run_at) : "Belum ada jadwal berikutnya", "")
         ),
         h("div", { className: "hrk-two-col" },
@@ -348,7 +350,7 @@
           h("p", null, "Satu tempat untuk melihat aktivitas Hermes, memahami kapan memakainya, dan mencoba otomasi yang benar-benar berguna."),
           h("div", { className: "hrk-hero-actions" }, h("button", { className: "hrk-button hrk-button-light", onClick: function () { setTab("ringkasan"); } }, "Lihat aktivitas →"), h("button", { className: "hrk-button hrk-button-ghost", onClick: function () { setTab("panduan"); } }, "Jelajahi panduan"))
         ),
-        h("div", { className: "hrk-hero-side" }, h("span", null, "STATUS SAAT INI"), h("strong", null, gatewayOn ? (activeAgents ? "Hermes sedang bekerja" : "Hermes siap dipakai") : "Gateway belum berjalan"), h("small", null, loadedAt ? "Diperbarui " + when(loadedAt) : "Mengambil data…"))
+        h("div", { className: "hrk-hero-side" }, h("span", null, "STATUS SAAT INI"), h("strong", null, data.status ? (gatewayOn ? (activeAgents ? "Hermes sedang bekerja" : "Hermes siap dipakai") : "Gateway belum berjalan") : "Memuat status Hermes"), h("small", null, loadedAt ? "Diperbarui " + when(loadedAt) : "Mengambil data…"))
       ),
       h("nav", { className: "hrk-nav", "aria-label": "Navigasi Ruang Kerja" }, [
         ["ringkasan", "Ringkasan"], ["panduan", "Kapan pakai AI?"], ["otomasi", "Otomasi"], ["telegram", "Telegram"]
