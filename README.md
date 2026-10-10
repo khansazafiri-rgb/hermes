@@ -22,6 +22,18 @@ sh "$HOME/hermes-ruang-kerja-repo/install.sh"
 
 Buka ulang dashboard Hermes. Tab **Ruang Kerja** akan muncul di samping Sessions. Jika belum terlihat, gunakan fitur **Rescan Plugins** di dashboard atau mulai ulang proses dashboard. Pastikan Hermes yang terpasang mendukung [dashboard plugins](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard).
 
+### VPS ini: Hermes berjalan di Docker
+
+Di VPS dengan container `hermes`, jalankan langkah tambahan berikut setelah pemasangan plugin:
+
+```bash
+sh "$HOME/hermes-ruang-kerja-repo/enable-dashboard.sh"
+```
+
+Pemasang dashboard membaca pengaturan Docker Compose container `hermes`, membuat pengaturan tambahan pribadi di `~/.config/hermes-ruang-kerja/compose.dashboard.yml`, lalu memulai ulang container Hermes sebentar. Dashboard dibuka hanya pada alamat jaringan pribadi `100.70.251.71:9119` dan dilindungi nama pengguna serta kata sandi acak. **Simpan kata sandi yang ditampilkan di terminal; jangan kirim ke chat atau GitHub.** Dari perangkat yang tersambung ke jaringan pribadi VPS, buka `http://100.70.251.71:9119`, masuk, lalu pilih tab **Ruang Kerja**.
+
+Saat menyalakan ulang layanan lewat Docker Compose di kemudian hari, sertakan berkas tambahan tersebut atau jalankan `enable-dashboard.sh` lagi agar dashboard tetap aktif. [Panduan resmi Hermes Docker](https://hermes-agent.nousresearch.com/docs/user-guide/docker) menjelaskan bahwa dashboard perlu diaktifkan pada container dan akses luar container memerlukan autentikasi.
+
 Untuk pembaruan, jalankan `git -C "$HOME/hermes-ruang-kerja-repo" pull --ff-only`, lalu `sh "$HOME/hermes-ruang-kerja-repo/install.sh"` lagi. Pemasang hanya menyalin tiga berkas plugin dan tidak mengubah token, konfigurasi model, atau jadwal yang sudah ada.
 
 ## Menggunakan otomasi
