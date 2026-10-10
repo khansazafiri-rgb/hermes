@@ -1,0 +1,13 @@
+{
+  "name": "hermes-ruang-kerja",
+  "label": "Ruang Kerja",
+  "description": "Ringkasan aktivitas, panduan penggunaan, dan otomasi pribadi dalam bahasa Indonesia.",
+  "icon": "Activity",
+  "version": "0.1.0",
+  "tab": {
+    "path": "/ruang-kerja",
+    "position": "after:sessions"
+  },
+  "entry": "dist/index.js",
+  "css": "dist/style.css"
+}
